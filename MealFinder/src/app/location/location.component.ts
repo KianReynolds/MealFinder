@@ -15,8 +15,8 @@ export class LocationComponent {
   center: google.maps.LatLngLiteral = { lat: 37.7749, lng: -122.4194};
   zoom = 12;
 
-  // options: google.maps.MapOptions = {
-  //   maxZoom: 18,
-  //   minZoom: 8,
-  // };
+  options: google.maps.MapOptions = {
+    maxZoom: 18,
+    minZoom: 8,
+  };
 }
