@@ -11,6 +11,6 @@ export const routes: Routes = [
     {path:'sign-in',component:SignInComponent},
     {path:'about',component:AboutComponent},
     {path:'location',component:LocationComponent},
-    {path: '', redirectTo: '/location', pathMatch: 'full'},
+    //{path: '', redirectTo: '/location', pathMatch: 'full'},
     {path:'allergies',component:AllergiesComponent}
 ];
