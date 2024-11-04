@@ -38,16 +38,16 @@ export class AppComponent {
 
   }
 
-  getRecipeDetails(queryName:string) : void {
-    this._mealdbService.getMovieData(queryName).subscribe(
-      (result) => {
-        this.recipeData=result;
-        console.log("Second API Data:", this.recipeData?.recipe);
+  // getRecipeDetails(queryName:string) : void {
+  //   this._mealdbService.getMovieData(queryName).subscribe(
+  //     (result) => {
+  //       this.recipeData=result;
+  //       console.log("Second API Data:", this.recipeData?.recipe);
 
-      },
-      error => this.errorMessage = <any>error
-    );
+  //     },
+  //     error => this.errorMessage = <any>error
+  //   );
 
-  }
+  //}
    
 }
