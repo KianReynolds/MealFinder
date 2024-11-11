@@ -1,3 +1,27 @@
-<h2>Allergies Section</h2>
+<h1>Sign Up</h1>
 
-<h3>Please Select Which Allergies You Have:</h3>
+<h2>Please choose your allergies after you have enter your details</h2>
+<div class="signup-container">
+    <form [formGroup]="allergyForm" (ngSubmit)="onSubmit()">
+        <label for="username">Username</label>
+        <input id="username" formControlName="username" />
+
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" />
+
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" />
+
+        <div formArrayName="allergies">
+            <label>Allergies</label>
+            <button type="button" (click)="addAllergy()">Add Allergy</button>
+
+            <div *ngFor="let allergy of allergies.controls; let i = index" [formGroupName]="i">
+                <input [formControlName]="i" placeholder="Enter an allergy" />
+                <button type="button" (click)="removeAllergy(i)">Remove </button>
+            </div>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
