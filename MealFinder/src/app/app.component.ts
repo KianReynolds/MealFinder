@@ -5,7 +5,7 @@ import { themealdbApiService } from './services/themealdb-api.service';
 import { CommonModule } from '@angular/common';
 import { Recipedbresponse } from './recipedbresponse';
 import { SecondApiService } from './services/second-api.service';
-
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
