@@ -1,6 +1,22 @@
 <h1>Sign Up</h1>
 
 <h2>Please choose your allergies after you have enter your details</h2>
+
+<div class="search">
+    <h1>Recipe Search</h1>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search for a recipe"/>
+    <button (click)="searchRecipes()">Search</button>
+</div>
+
+<div class="recipes" *ngIf="recipes.length; ">
+    <h2>Recipes</h2>
+    <ul>
+        <li *ngFor="let recipe of recipes" (click)="selectRecipes(recipe)" >
+            {{recipe.name}}
+        </li>
+    </ul>
+</div>
+
 <div class="signup-container">
     <form [formGroup]="allergyForm" (ngSubmit)="onSubmit()">
         <label for="username">Username</label>
