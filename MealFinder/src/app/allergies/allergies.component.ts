@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms'
 import { ApiService } from '../api.service';
 import { OnInit } from '@angular/core';
+import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-allergies',
@@ -14,27 +16,49 @@ import { OnInit } from '@angular/core';
 })
 export class AllergiesComponent implements OnInit {
   //allergyForm: FormGroup;
-  searchQuery: string = "";
-  recipes: any[] = [];
+  //searchQuery: string = "";
+  //recipes: any[] = [];
+
+  allergies: Set<string> = new Set();
+  allergiesList: string[] = [];
 
   constructor(
     //private fb: FormBuilder,
     private apiService: ApiService
   ) {}
 
-  ngOnInit(): void {}
-
-  searchRecipes(): void {
-    this.apiService.searchRecipes(this.searchQuery).subscribe({
-      next: (data) => {
-        this.recipes = data.results;
-        console.log("Recipes:", this.recipes);
-      },
-      error: (err) => {
-        console.error("Error fetching recipes:",err);
-      },
-    });
+  ngOnInit(): void {
+    this.fetchAllergies();
   }
+
+  // searchRecipes(): void {
+  //   this.apiService.searchRecipes(this.searchQuery).subscribe({
+  //     next: (data) => {
+  //       this.recipes = data.results;
+  //       console.log("Recipes:", this.recipes);
+  //     },
+  //     error: (err) => {
+  //       console.error("Error fetching recipes:",err);
+  //     },
+  //   });
+  // }
+
+  fetchAllergies(): void {
+    this.apiService.getAllergies().subscribe(
+      (response) => {
+        const recipes = response.hits;
+        recipes.forEach((recipe: any) => {
+          recipe.recipe.healthLabels.forEach((label: string) => {
+            this.allergies.add(label);
+          });
+        });
+      },
+      (error) => {
+        console.error("Error fetching allergies:", error)
+      }
+    );
+  }
+
 
 
 

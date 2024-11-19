@@ -2,7 +2,7 @@
 
 <h2>Please choose your allergies after you have enter your details</h2>
 
-<div class="search">
+<!-- <div class="search">
     <h1>Recipe Search</h1>
     <input type="text" [(ngModel)]="searchQuery" placeholder="Search for a recipe"/>
     <button (click)="searchRecipes()">Search</button>
@@ -15,9 +15,16 @@
             {{recipe.name}}
         </li>
     </ul>
+</div> -->
+
+<div class="allergy-container">
+    <h2>Allergy List</h2>
+    <ul>
+        <li *ngFor="let allergy of allergies">{{ allergy }}</li>
+    </ul>
 </div>
 
-<div class="signup-container">
+<!-- <div class="signup-container">
     <form [formGroup]="allergyForm" (ngSubmit)="onSubmit()">
         <label for="username">Username</label>
         <input id="username" formControlName="username" />
@@ -40,4 +47,4 @@
 
         <button type="submit">Sign Up</button>
     </form>
-</div>
+</div> -->
