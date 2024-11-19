@@ -1,12 +1,11 @@
-export interface Recipe{
-    name: string;
-    description: string;
+export interface Hits{
+    recipe: string;
     
 }
 
 
 
 export interface Recipedbresponse {
-    recipe: Recipe[];
+    hits: Hits[];
     Error: string;
 }

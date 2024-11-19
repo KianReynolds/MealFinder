@@ -2,29 +2,33 @@
 
 <h2>Please choose your allergies after you have enter your details</h2>
 
-<!-- <div class="search">
-    <h1>Recipe Search</h1>
-    <input type="text" [(ngModel)]="searchQuery" placeholder="Search for a recipe"/>
-    <button (click)="searchRecipes()">Search</button>
-</div>
+<!-- <form>
+    <div class="form-group">
+      <input type="text" name="meal-name" class="form-control" #mealNameInput placeholder="Enter meal name">
+<button (click)="onSearch(mealNameInput.value)" type="button" class="btn btn-primary">Get Recipe Details</button>
 
-<div class="recipes" *ngIf="recipes.length; ">
-    <h2>Recipes</h2>
-    <ul>
-        <li *ngFor="let recipe of recipes" (click)="selectRecipes(recipe)" >
-            {{recipe.name}}
-        </li>
-    </ul>
+   </div>
+  </form>
+
+  <div class="row bg light mt-4 p-4" *ngIf="recipeData">
+    <div class="col-sm-4">
+  
+  </div>
+    <div class="col-sm-8">
+      <div *ngIf="recipeData && recipeData.hits">
+<div *ngFor="let hit of recipeData.hits">
+  <h1>{{ hit.recipe }}</h1>
 </div> -->
 
-<div class="allergy-container">
+
+<!-- <div class="allergy-container">
     <h2>Allergy List</h2>
     <ul>
         <li *ngFor="let allergy of allergies">{{ allergy }}</li>
     </ul>
-</div>
+</div> -->
 
-<!-- <div class="signup-container">
+<div class="signup-container">
     <form [formGroup]="allergyForm" (ngSubmit)="onSubmit()">
         <label for="username">Username</label>
         <input id="username" formControlName="username" />
@@ -38,13 +42,26 @@
         <div formArrayName="allergies">
             <label>Allergies</label>
             <button type="button" (click)="addAllergy()">Add Allergy</button>
+            
 
             <div *ngFor="let allergy of allergies.controls; let i = index" [formGroupName]="i">
-                <input [formControlName]="i" placeholder="Enter an allergy" />
+                <label>Choose an allergy:</label>
+                    <select>
+                      <option>Milk</option>
+                      <option>Eggs</option>
+                      <option>Fish</option>
+                      <option>Crustacean shellfish</option>
+                      <option>Peanuts</option>
+                      <option>Tree nuts</option>
+                      <option>Wheat</option>
+                      <option>Soybeans</option>
+                      <option>Seasame</option>
+                    </select>
+                
                 <button type="button" (click)="removeAllergy(i)">Remove </button>
             </div>
         </div>
 
         <button type="submit">Sign Up</button>
     </form>
-</div> -->
+</div>

@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
 import { OnInit } from '@angular/core';
 import { response } from 'express';
 import { error } from 'console';
+import { Recipedbresponse } from '../recipedbresponse';
 
 @Component({
   selector: 'app-allergies',
@@ -15,88 +16,79 @@ import { error } from 'console';
   styleUrl: './allergies.component.css'
 })
 export class AllergiesComponent implements OnInit {
-  //allergyForm: FormGroup;
-  //searchQuery: string = "";
-  //recipes: any[] = [];
+  allergyForm: FormGroup;
+  searchQuery: string = "";
+  recipes: any[] = [];
 
-  allergies: Set<string> = new Set();
-  allergiesList: string[] = [];
+  recipeData:Recipedbresponse | undefined;
+  errorMessage:any;
+
+  //allergies: Set<string> = new Set();
+  //allergiesList: string[] = [];
 
   constructor(
-    //private fb: FormBuilder,
+    private fb: FormBuilder,
     private apiService: ApiService
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchAllergies();
+  ) {
+    this.allergyForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
+      password: ['', Validators.required, Validators.minLength(6)], 
+      allergies: this.fb.array([])
+    });
   }
 
-  // searchRecipes(): void {
-  //   this.apiService.searchRecipes(this.searchQuery).subscribe({
-  //     next: (data) => {
-  //       this.recipes = data.results;
-  //       console.log("Recipes:", this.recipes);
-  //     },
-  //     error: (err) => {
-  //       console.error("Error fetching recipes:",err);
-  //     },
-  //   });
-  // }
+  ngOnInit(): void {
+    //this.fetchAllergies();
+  }
 
-  fetchAllergies(): void {
-    this.apiService.getAllergies().subscribe(
-      (response) => {
-        const recipes = response.hits;
-        recipes.forEach((recipe: any) => {
-          recipe.recipe.healthLabels.forEach((label: string) => {
-            this.allergies.add(label);
-          });
-        });
+  onSearch(searchQuery: string): void {
+    this.apiService.searchRecipes(searchQuery).subscribe(
+      result => {
+        this.recipeData=result;
+        console.log(this.recipeData.hits);
+
       },
-      (error) => {
-        console.error("Error fetching allergies:", error)
-      }
+      error => this.errorMessage = <any>error
     );
   }
 
+  // fetchAllergies(): void {
+  //   this.apiService.getAllergies().subscribe(
+  //     (response) => {
+  //       const recipes = response.hits;
+  //       recipes.forEach((recipe: any) => {
+  //         recipe.recipe.healthLabels.forEach((label: string) => {
+  //           this.allergies.add(label);
+  //         });
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error("Error fetching allergies:", error)
+  //     }
+  //   );
+  // }
 
-
-
-
-
-
-
-
-
-
-
-
-    // this.allergyForm = this.fb.group({
-    //   username: ['', Validators.required],
-    //   email: ['', Validators.required, Validators.email],
-    //   password: ['', Validators.required, Validators.minLength(6)], 
-    //   allergies: this.fb.array([])
-    // });
   
 
-  // get allergies(): FormArray {
-  //   return this.allergyForm.get('allergies') as FormArray;
-  // }
+  get allergies(): FormArray {
+    return this.allergyForm.get('allergies') as FormArray;
+  }
 
-  // addAllergy(): void {
-  //   this.allergies.push(this.fb.control('', Validators.required));
+  addAllergy(): void {
+    this.allergies.push(this.fb.control('', Validators.required));
 
-  // }
+  }
 
-  // removeAllergy(index: number): void {
-  //   this.allergies.removeAt(index);
-  // }
+  removeAllergy(index: number): void {
+    this.allergies.removeAt(index);
+  }
 
-  // onSubmit(): void {
-  //   if (this.allergyForm.valid) {
-  //     console.log('Form Submitted', this.allergyForm.value);
-  //   } else {
-  //     console.log('Form is not valid');
-  //   }
-  // }
+  onSubmit(): void {
+    if (this.allergyForm.valid) {
+      console.log('Form Submitted', this.allergyForm.value);
+    } else {
+      console.log('Form is not valid');
+    }
+  }
 }

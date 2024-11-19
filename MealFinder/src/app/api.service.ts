@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { Recipedbresponse } from './recipedbresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +22,37 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // searchRecipes(query: string): Observable<any> {
-  //   return this.http.get(`${this.baseUrl}?q=${query}`);
-  // } 
 
-  getAllergies(): Observable<any> {
-    const params = new HttpParams()
-      .set("type", "public")
-      .set("q", "*")
-      .set("app_id", this.API_ID)
-      .set("app_key", this.APP_KEY)
-      .set("field", "healthLabels");
-
-    return this.http.get(this.baseUrl, {params}).pipe(
-      catchError(this.handleError)
+  searchRecipes(strMeal:string):Observable<Recipedbresponse> {
+    return this.http.get<Recipedbresponse>(this.baseUrl + strMeal)
+    .pipe(
+      tap(data => console.log('Moviedata/error'+JSON.stringify(data))
+    ),
+    catchError(this.handleError)
     );
   }
+
+
+  // searchRecipes(query: string): Observable<any> {
+  //   const params = new HttpParams()
+  //   .set('q', query)
+  //   .set('app_id', this.API_ID)
+  //   .set('app_key', this.APP_KEY)
+  //   .set('type', 'public')
+
+  //   return this.http.get<any>(`${this.baseUrl}, {param}`);
+  // } 
+
+  // getAllergies(): Observable<any> {
+  //   const params = new HttpParams()
+  //     .set("type", "public")
+  //     .set("q", "*")
+  //     .set("app_id", this.API_ID)
+  //     .set("app_key", this.APP_KEY)
+  //     .set("field", "healthLabels");
+
+  //   return this.http.get(this.baseUrl, {params}).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
 }
