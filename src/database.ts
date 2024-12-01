@@ -1,7 +1,7 @@
 import { MongoClient, Db, Collection}  from "mongodb";
 import  dotenv from "dotenv";
 import User from '../models/user';
-
+import { Meal } from "../models/meal";
 
   dotenv.config();
   const connectionString : string  = process.env.DB_CONN_STRING || "mongodb+srv://S00237055:RSOhAthL3j67XPzp@cluster0.mqzqp01.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -11,6 +11,8 @@ import User from '../models/user';
 let db : Db 
   export let usersCollection : Collection<User>
 
+  export let mealsCollection : Collection<Meal>
+
   export const collections: { users?: Collection<User> } = {};
 
 client.connect().then
@@ -19,6 +21,8 @@ client.connect().then
   db = client.db(dbName);
   usersCollection  = db.collection('users');
   collections.users = usersCollection;
+
+  mealsCollection = db.collection('meals');
   console.log('Connected to database');
 }
 )
@@ -32,3 +36,5 @@ client.connect().then
       console.log(`error with ${error}`)
     }
   });
+
+  
