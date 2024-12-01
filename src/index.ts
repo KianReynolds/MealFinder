@@ -3,7 +3,7 @@ import morgan from "morgan";
 import userRoutes from '../routes/users';
 import dotenv from "dotenv";
 import {authenticateKey} from './middleware/auth.middleware';
-
+import cors from "cors";
 
 dotenv.config();
 
@@ -15,9 +15,11 @@ app.use(morgan("tiny"));
 
 app.use(express.json());
 
+app.use(cors());
+
 app.use('/api/v1/users', userRoutes)
 
-//app.use(authenticateKey);
+
 
 app.get("/ping", async (_req : Request, res: Response) => {
     res.send({

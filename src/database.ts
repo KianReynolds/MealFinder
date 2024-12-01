@@ -4,8 +4,8 @@ import User from '../models/user';
 
 
   dotenv.config();
-  const connectionString : string  = process.env.DB_PASSWORD || "wordpass";
-  const dbName : string = process.env.DB_USERNAME || "recipe_user";
+  const connectionString : string  = process.env.DB_CONN_STRING || "mongodb+srv://S00237055:RSOhAthL3j67XPzp@cluster0.mqzqp01.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  const dbName : string = process.env.DB_NAME || "300user";
   const client = new MongoClient(connectionString);
 
 let db : Db 
