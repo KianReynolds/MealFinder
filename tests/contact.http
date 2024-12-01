@@ -1,7 +1,7 @@
 POST http://localhost:3001/api/v1/users HTTP/1.1
 content-type: application/json
 
-{ "name" : "John Doe",
+{ "name" : "John Mary",
    "phonenumber" : "0871234567",
    "email": "jdoe123@gmail.com"}
 ###
