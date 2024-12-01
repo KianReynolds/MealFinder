@@ -86,8 +86,6 @@ export const updateUser = async (req: Request, res: Response) => {
   try{
     const newData = req.body;
 
-    const {name, email, phonenumber} = req.body;
-
     if(!ObjectId.isValid(id)) {
       return res.status(400).send({error: 'Invalid user ID format.' });
     }
