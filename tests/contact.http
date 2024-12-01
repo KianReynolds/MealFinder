@@ -1,9 +1,21 @@
-POST http://localhost:3001/api/v1/users HTTP/1.1
+http://localhost:3001/api/v1/meals 
+###
+
+
+POST http://localhost:3001/api/v1/meals/sample HTTP/1.1
 content-type: application/json
 
-{ "name" : "John Mary",
-   "phonenumber" : "0871234567",
-   "email": "jdoe123@gmail.com"}
+{ "name": "Spicy Arrabiata Penne",
+    "category": "Vegetarian",
+    "instructions": "Bring a large pot of water to a boil...",
+    "ingredients": ["Penne", "Tomato Sauce", "Garlic"]}
+
 ###
+
+Get http://localhost:3001/api/v1/meals/random.php HTTP/1.1
+content-type: application/json
+
+###
+
 
 
