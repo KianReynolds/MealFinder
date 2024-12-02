@@ -37,10 +37,19 @@ export const insertSampleMeal = async (req: Request, res: Response) => {
 
 
 export const getMealByName =async  (req: Request, res: Response) => {
-   
+  const { name } = req.params;
+  
+  if(!name){
+    res.status(400).json({ error: "Meal name is required"});
+    return;
+  }
   try {
-   const users = (await mealsCollection.find({}).toArray()) as Meal[];
-   res.status(200).json(users);
+    const response = await axios.get(`${BASE_URL}/search.php?s=${name}`);
+
+    if(!response.data.meals){
+      res.status(404).json({message: `No meals found with the name: ${name}`});
+    }
+    res.status(200).json(response.data);
 
  } catch (error) {
   if (error instanceof Error)
@@ -170,61 +179,44 @@ export const getMealsByLetter = async (req: Request, res: Response) => {
 };
 
 
+// Fetch random meal
+export const getRandomMeal = async (_req: Request, res: Response) => {
 
-// // Fetch meal by name
-// export const getMealByName = async (req: Request, res: Response): Promise<void> => {
-//   const { name } = req.params;
-//   try {
-//     const response = await axios.get(`${BASE_URL}/search.php?s=${name}`);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error("Error fetching meal by name:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
+  
+  try {
+    const response = await axios.get(`${BASE_URL}/random.php`);
+    
+    if(!response.data.meals || response.data.meals.length === 0){
+      res.status(404).json({message: "No random meal found"});
+      return;
+    }
+    
+    const meal = response.data.meals[0];
+    const mealId = meal.idMeal;
 
-// // Fetch meals by first letter
-// export const getMealsByLetter = async (req: Request, res: Response): Promise<void> => {
-//   const { letter } = req.params;
-//   try {
-//     const response = await axios.get(`${BASE_URL}/search.php?f=${letter}`);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error("Error fetching meals by first letter:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
+    res.status(200).json({ mealId, meal });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Log more specific error details if it's an Axios error
+      console.error("Axios error fetching random meal:", error.response?.data || error.message);
+      res.status(502).json({ error: "Error communicating with TheMealDB API." });
+    } else if (error instanceof Error) {
+      console.error("Unexpected error:", error.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.error("Unknown error:", error);
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
+  }
+};
 
-// // Fetch meal by ID
-// export const getMealById = async (req: Request, res: Response): Promise<void> => {
-//   const { id } = req.params;
-//   try {
-//     const response = await axios.get(`${BASE_URL}/lookup.php?i=${id}`);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error("Error fetching meal by ID:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// // Fetch random meal
-// export const getRandomMeal = async (_req: Request, res: Response): Promise<void> => {
-//   try {
-//     const response = await axios.get(`${BASE_URL}/random.php`);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error("Error fetching random meal:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-// // Fetch meal categories
-// export const getMealCategories = async (_req: Request, res: Response): Promise<void> => {
-//   try {
-//     const response = await axios.get(`${BASE_URL}/categories.php`);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error("Error fetching meal categories:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
+// Fetch meal categories
+export const getMealCategories = async (_req: Request, res: Response): Promise<void> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories.php`);
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error fetching meal categories:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

@@ -9,7 +9,7 @@ content-type: application/json
 
 ###
 
-GET {{endpoint}}/search/Pizza HTTP/1.1
+GET {{endpoint}}/search/pizza HTTP/1.1
 content-type: application/json
 
 ###
@@ -20,7 +20,15 @@ content-type: application/json
 ###
 GET {{endpoint}}/letter/a HTTP/1.1
 content-type: application/json
+
 ###
 
+GET {{endpoint}}/random HTTP/1.1
+content-type: application/json
 
+###
 
+GET {{endpoint}}/categories HTTP/1.1
+content-type: application/json
+
+###
