@@ -1,20 +1,23 @@
 import express from "express";
 import {
   insertSampleMeal,
-  // getMealByName,
+  getMealByName,
   // getMealsByLetter,
-  // getMealById,
+  getMealById,
   // getRandomMeal,
   // getMealCategories,
+  updateMeal,
+  deleteMeal,
+  
 } from "../controllers/meals";
 
 const router = express.Router();
 
 // Routes
 router.post("/sample", insertSampleMeal);
-// router.get("/search/:name", getMealByName);
-// router.get("/meals/:letter", getMealsByLetter);
-// router.get("/meal/:id", getMealById);
+router.get("/search/:name", getMealByName);
+//router.get("/meals/:letter", getMealsByLetter);
+router.get("/:id", getMealById);
 // router.get("/random", getRandomMeal);
 // router.get("/categories", getMealCategories);
 

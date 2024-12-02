@@ -1,21 +1,20 @@
-http://localhost:3001/api/v1/meals 
-###
-
-
-POST http://localhost:3001/api/v1/meals/sample HTTP/1.1
+@endpoint = http://localhost:3001/api/v1/meals
+POST {{endpoint}}/sample HTTP/1.1
 content-type: application/json
 
-{ "name": "Spicy Arrabiata Penne",
+{ "name": "Pizza",
     "category": "Vegetarian",
     "instructions": "Bring a large pot of water to a boil...",
     "ingredients": ["Penne", "Tomato Sauce", "Garlic"]}
 
 ###
 
-Get http://localhost:3001/api/v1/meals/random.php HTTP/1.1
+GET {{endpoint}}/search/:Pizza HTTP/1.1
 content-type: application/json
 
 ###
 
+GET {{endpoint}}/674cd7d1d9e1adf98f72689a HTTP/1.1
+content-type: application/json
 
-
+###
