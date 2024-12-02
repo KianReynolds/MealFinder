@@ -8,6 +8,7 @@ import { response } from 'express';
 import { error } from 'console';
 import { Recipedbresponse } from '../recipedbresponse';
 
+
 @Component({
   selector: 'app-allergies',
   standalone: true,
