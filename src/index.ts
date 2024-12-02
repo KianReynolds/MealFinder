@@ -29,11 +29,11 @@ app.use('/api/v1/meals', mealRoutes)
 //     }
 //     res.status(201).json({ message: "Meal created successfully", data: _req.body });
 //   });
-// app.get("/ping", async (_req : Request, res: Response) => {
-//     res.send({
-//     message: "hello from Kian",
-//     });
-// });
+app.get("/ping", async (_req : Request, res: Response) => {
+    res.send({
+    message: "hello from Kian",
+    });
+});
 // app.get('/bananas', async(_req : Request, res: Response) => {
 //     res.send('hello world, this is bananas');
 // });

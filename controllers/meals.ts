@@ -4,7 +4,7 @@ import { mealsCollection } from "../src/database";
 import { Meal } from "../models/meal";
 import { ObjectId } from "mongodb";
 
-const BASE_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
 // Insert a sample meal
 export const insertSampleMeal = async (req: Request, res: Response) => {
@@ -146,6 +146,30 @@ function logMealDetails(meal: Meal): void {
   console.log(`Instructions: ${meal.instructions}`);
 }
 };
+
+  // Fetch meals by first letter
+export const getMealsByLetter = async (req: Request, res: Response) => {
+  const { letter } = req.params;
+
+  if(!letter || letter.length !==1 || !/^[a-zA-Z]$/.test(letter)) {
+    res.status(400).json({error: "Please provide a single valid letter (a-z)."})
+    return;
+  }
+  try {
+    const response = await axios.get(`${BASE_URL}/search.php?f=${letter}`);
+    
+    if (!response.data.meals) {
+      res.status(404).json({ message: `No meals found for the letter: ${letter}` });
+      return;
+    }
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error fetching meals by first letter:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
 
 // // Fetch meal by name
 // export const getMealByName = async (req: Request, res: Response): Promise<void> => {

@@ -9,7 +9,7 @@ content-type: application/json
 
 ###
 
-GET {{endpoint}}/search/:Pizza HTTP/1.1
+GET {{endpoint}}/search/Pizza HTTP/1.1
 content-type: application/json
 
 ###
@@ -18,3 +18,9 @@ GET {{endpoint}}/674cd7d1d9e1adf98f72689a HTTP/1.1
 content-type: application/json
 
 ###
+GET {{endpoint}}/letter/a HTTP/1.1
+content-type: application/json
+###
+
+
+
