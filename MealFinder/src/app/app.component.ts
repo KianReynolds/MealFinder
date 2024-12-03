@@ -8,11 +8,11 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet,CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'})
-
-export class AppComponent {
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
   title = 'Meal Finder';
  
   mealData:themealdbResponse | undefined;
@@ -24,18 +24,26 @@ export class AppComponent {
     
   ) {}
 
+  ngOnInit() {
+    
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.currentRoute = this.router.url; 
+    });
+  }
+
   
   getMealDetails(queryName:string) : void {
     this._mealdbService.getMealData(queryName).subscribe(
       result => {
-        this.mealData=result;
-        console.log(this.mealData.meals);
-
+        this.mealData = result;
+        console.log(this.mealData?.meals);
       },
       error => this.errorMessage = <any>error
     );
-
   }
 
    
 }
+
