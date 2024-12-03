@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { themealdbApiService } from '../services/themealdb-api.service';
-import { themealdbResponse } from '../mealdbresponse';
+import { themealdbResponse } from '../../interfaces/mealdbresponse';
 import { Recipedbresponse } from '../recipedbresponse';
 
 @Component({

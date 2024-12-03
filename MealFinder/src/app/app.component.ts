@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Meal, themealdbResponse } from './mealdbresponse';
+import { Meal, themealdbResponse } from '../interfaces/mealdbresponse';
 import { themealdbApiService } from './services/themealdb-api.service';
 import { CommonModule } from '@angular/common';
 

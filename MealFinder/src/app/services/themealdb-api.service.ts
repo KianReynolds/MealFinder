@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable,throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs';
-import { Meal, themealdbResponse } from '../mealdbresponse';
+import { Meal, themealdbResponse } from '../../interfaces/mealdbresponse';
 
 
 @Injectable({
