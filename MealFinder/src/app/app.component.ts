@@ -1,53 +1,55 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { themealdbResponse } from './mealdbresponse';
 import { themealdbApiService } from './services/themealdb-api.service';
-import { CommonModule } from '@angular/common';
 import { Recipedbresponse } from './recipedbresponse';
 import { SecondApiService } from './services/second-api.service';
-import { ApiService } from './api.service';
-
+import { RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet,CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'})
-
-export class AppComponent {
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
   title = 'Meal Finder';
-  mealData:themealdbResponse | undefined;
-  recipeData:Recipedbresponse | undefined;
-  errorMessage:any;
+  mealData: themealdbResponse | undefined;
+  recipeData: Recipedbresponse | undefined;
+  errorMessage: any;
+  currentRoute: string = '';
 
   constructor(
-    private _mealdbService:themealdbApiService,
-    private _secondApiService: SecondApiService
+    private _mealdbService: themealdbApiService,
+    private _secondApiService: SecondApiService,
+    private router: Router
   ) {}
 
+  ngOnInit() {
+    
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.currentRoute = this.router.url; 
+    });
+  }
+
   
-  getMealDetails(queryName:string) : void {
+  shouldShowMealSearch(): boolean {
+    return !this.currentRoute.includes('/signup');
+  }
+
+  getMealDetails(queryName: string): void {
     this._mealdbService.getMovieData(queryName).subscribe(
       result => {
-        this.mealData=result;
-        console.log(this.mealData.meals);
-
+        this.mealData = result;
+        console.log(this.mealData?.meals);
       },
       error => this.errorMessage = <any>error
     );
-
   }
-
-  // getRecipeDetails(queryName:string) : void {
-  //   this._mealdbService.getMovieData(queryName).subscribe(
-  //     (result) => {
-  //       this.recipeData=result;
-  //       console.log("Second API Data:", this.recipeData?.recipe);
-
-  //     },
-  //     error => this.errorMessage = <any>error
-  //   );
-
-  //}
-   
 }
+
