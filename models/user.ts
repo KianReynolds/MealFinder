@@ -1,8 +1,10 @@
 import { ObjectId } from "mongodb";
 
 export default interface User {
-    name: string;
-    phonenumber: string;
-    email: string;
-    id?: ObjectId;
+    id?: ObjectId;           
+    fname: string;            
+    lname: string;            
+    email: string;           
+    password: string;         
+    allergies: string[];      
 }

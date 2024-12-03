@@ -1,9 +1,10 @@
 import express, {Application, Request, Response} from "express" ;
 import morgan from "morgan";
-import userRoutes from '../routes/users';
+import userRoutes from '../routes/auth';
 import dotenv from "dotenv";
 import cors from "cors";
 import mealRoutes from '../routes/meals';
+import authRoutes from '../routes/auth';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use('/api/v1/users', userRoutes)
 
 app.use('/api/v1/meals', mealRoutes)
 
+app.use('/signup/signup', authRoutes); 
 
 app.get("/ping", async (req : Request, res: Response) => {
     res.send({

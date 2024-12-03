@@ -148,12 +148,7 @@ export const deleteMeal = async (req: Request, res: Response) => {
   }
   res.status(400).send(`Unable to delete user`);
 }
-// function logMealDetails(meal: Meal): void {
-//   console.log(`Meal: ${meal.name}`);
-//   console.log(`Category: ${meal.category}`);
-//   console.log(`Ingredients: ${meal.ingredients.join(", ")}`);
-//   console.log(`Instructions: ${meal.instructions}`);
-// }
+
 };
 
   // Fetch meals by first letter
