@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { themealdbResponse } from './mealdbresponse';
+import { Meal, themealdbResponse } from './mealdbresponse';
 import { themealdbApiService } from './services/themealdb-api.service';
 import { CommonModule } from '@angular/common';
-import { Recipedbresponse } from './recipedbresponse';
-import { SecondApiService } from './services/second-api.service';
-import { ApiService } from './api.service';
+
 
 @Component({
   selector: 'app-root',
@@ -16,18 +14,19 @@ import { ApiService } from './api.service';
 
 export class AppComponent {
   title = 'Meal Finder';
+ 
   mealData:themealdbResponse | undefined;
-  recipeData:Recipedbresponse | undefined;
+  
   errorMessage:any;
 
   constructor(
     private _mealdbService:themealdbApiService,
-    private _secondApiService: SecondApiService
+    
   ) {}
 
   
   getMealDetails(queryName:string) : void {
-    this._mealdbService.getMovieData(queryName).subscribe(
+    this._mealdbService.getMealData(queryName).subscribe(
       result => {
         this.mealData=result;
         console.log(this.mealData.meals);
@@ -38,16 +37,5 @@ export class AppComponent {
 
   }
 
-  // getRecipeDetails(queryName:string) : void {
-  //   this._mealdbService.getMovieData(queryName).subscribe(
-  //     (result) => {
-  //       this.recipeData=result;
-  //       console.log("Second API Data:", this.recipeData?.recipe);
-
-  //     },
-  //     error => this.errorMessage = <any>error
-  //   );
-
-  //}
    
 }
