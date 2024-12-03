@@ -8,10 +8,10 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet,CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'})
-
+  styleUrls: ['./app.component.css']
+})
 export class AppComponent {
   title = 'Meal Finder';
  
@@ -28,14 +28,13 @@ export class AppComponent {
   getMealDetails(queryName:string) : void {
     this._mealdbService.getMealData(queryName).subscribe(
       result => {
-        this.mealData=result;
-        console.log(this.mealData.meals);
-
+        this.mealData = result;
+        console.log(this.mealData?.meals);
       },
       error => this.errorMessage = <any>error
     );
-
   }
 
    
 }
+
