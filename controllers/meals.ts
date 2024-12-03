@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import { mealsCollection } from "../src/database";
-import { Meal } from "../models/meal";
+import { Meal, themealdbResponse } from "../models/meal";
 import { ObjectId } from "mongodb";
 
 const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
@@ -180,7 +180,7 @@ export const getMealsByLetter = async (req: Request, res: Response) => {
 
 
 // Fetch random meal
-export const getRandomMeal = async (_req: Request, res: Response) => {
+export const getRandomMeal = async (req: Request, res: Response) => {
 
   
   try {
@@ -211,12 +211,42 @@ export const getRandomMeal = async (_req: Request, res: Response) => {
 };
 
 // Fetch meal categories
-export const getMealCategories = async (_req: Request, res: Response): Promise<void> => {
+export const getMealCategories = async (req: Request, res: Response): Promise<void> => {
   try {
     const response = await axios.get(`${BASE_URL}/categories.php`);
     res.status(200).json(response.data);
   } catch (error) {
     console.error("Error fetching meal categories:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getMealIngredients = async (req: Request, res: Response): Promise<Response> => {
+  let {ingredient} = req.params;
+
+
+
+
+  if(!ingredient || ingredient.length <1) {
+    return res.status(400).json({error: `please enter a valid ingredient.`});
+    
+  }
+
+  try{
+    const response = await axios.get(`${BASE_URL}/filter.php?i=${ingredient}`);
+
+    if(response.data.meals) {
+      return res.json(response.data.meals);
+    }
+    else {
+    return res.status(404).json({
+      message: 'No meals found for the given ingredient.',
+    });
+  }
+} catch(error){
+  console.error('Error searching ingredient:', error);
+  return res.status(500).json({
+    error: 'Something went wrong while fetching the ingredient.',
+  });
   }
 };

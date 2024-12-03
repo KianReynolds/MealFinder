@@ -8,6 +8,7 @@ import {
   getMealById,
   getRandomMeal,
   getMealCategories,
+  getMealIngredients,
   updateMeal,
   deleteMeal,
   
@@ -17,10 +18,11 @@ const router = express.Router();
 
 // Routes
 router.post("/sample", insertSampleMeal);
-router.get("/search/:name", getMealByName);
-router.get("/letter/:letter", getMealsByLetter);
+router.get("/:name", getMealByName);
+router.get("/:letter", getMealsByLetter);
 router.get("/:id", getMealById);
 router.get("/random", getRandomMeal);
 router.get("/categories", getMealCategories);
+//router.get("/ingredient/:ingredient", getMealIngredients);
 
 export default router;
