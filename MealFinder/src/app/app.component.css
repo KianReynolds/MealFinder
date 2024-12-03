@@ -123,5 +123,22 @@
     .col-sm-4, .col-sm-8 {
       width: 100%;
     }
+    .navbar {
+      display: flex;
+      flex-direction: row; 
+      justify-content: space-around;
+      align-items: center;
+    }
+  
+    .navbar-nav {
+      display: flex;
+      flex-direction: row; 
+      width: auto;
+    }
+  
+    .navbar-nav .nav-link {
+      padding: 10px;
+      text-align: center;
+    }
   }
   
