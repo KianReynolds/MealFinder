@@ -1,15 +1,3 @@
-// export interface Meal {
-//   id?: string;
-//   name: string;
-//   category: string;
-//   instructions: string;
-//   ingredients: string[];
-// }
-
-
-
-
-
 export interface Meal {
     idMeal: string;
     strMeal: string;
