@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Meal Finder';
  
   mealData:themealdbResponse | undefined;
@@ -24,14 +24,7 @@ export class AppComponent implements OnInit {
     
   ) {}
 
-  ngOnInit() {
-    
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.currentRoute = this.router.url; 
-    });
-  }
+  
 
   
   getMealDetails(queryName:string) : void {
