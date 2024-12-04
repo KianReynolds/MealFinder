@@ -29,11 +29,11 @@ app.get("/ping", async (req : Request, res: Response) => {
     message: "hello from Kian",
     });
 });
-app.get('/bananas', async(_req : Request, res: Response) => {
-    res.send('hello world, this is bananas');
-});
+// app.get('/bananas', async(_req : Request, res: Response) => {
+//     res.send('hello world, this is bananas');
+// });
 
  app.listen(PORT, () => {
-    console.log("Server is running on port  ${port}");
+    console.log("Server is running on port --", PORT);
     });
 

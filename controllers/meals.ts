@@ -216,32 +216,32 @@ export const getMealCategories = async (req: Request, res: Response): Promise<vo
   }
 };
 
-export const getMealIngredients = async (req: Request, res: Response): Promise<Response> => {
-  let {ingredient} = req.params;
+// export const getMealIngredients = async (req: Request, res: Response): Promise<any> => {
+//   let {ingredient} = req.query;
 
 
 
 
-  if(!ingredient || ingredient.length <1) {
-    return res.status(400).json({error: `please enter a valid ingredient.`});
+//   if(!ingredient || typeof ingredient !== 'string' ) {
+//     return res.status(400).json({error: `please enter a valid ingredient.`});
     
-  }
+//   }
 
-  try{
-    const response = await axios.get(`${BASE_URL}/filter.php?i=${ingredient}`);
+//   try{
+//     const response = await axios.get(`${BASE_URL}/filter.php?i=${ingredient}`);
 
-    if(response.data.meals) {
-      return res.json(response.data.meals);
-    }
-    else {
-    return res.status(404).json({
-      message: 'No meals found for the given ingredient.',
-    });
-  }
-} catch(error){
-  console.error('Error searching ingredient:', error);
-  return res.status(500).json({
-    error: 'Something went wrong while fetching the ingredient.',
-  });
-  }
-};
+//     if(response.data.meals) {
+//       return res.json(response.data.meals);
+//     }
+//     else {
+//     return res.status(404).json({
+//       message: 'No meals found for the given ingredient.',
+//     });
+//   }
+// } catch(error){
+//   console.error('Error searching ingredient:', error);
+//   return res.status(500).json({
+//     error: 'Something went wrong while fetching the ingredient.',
+//   });
+//   }
+//};
