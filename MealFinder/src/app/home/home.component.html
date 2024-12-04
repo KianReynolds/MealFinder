@@ -22,13 +22,14 @@
     </nav>
   </div>
  
-  
-  <h1>Recipe Finder</h1>
-    
+  <div class="main">
+  <div class="heading">
+  <h1>Search Your Food Recipe</h1>
+  </div>
   
    <form>
       <div class="form-group">
-        <input type="text" name="meal-name" class="form-control" #mealNameInput placeholder="Enter meal name">
+        <input type="text" name="meal-name" class="form-control" #mealNameInput placeholder="Search">
   <button (click)="getMealDetails(mealNameInput.value)" type="button" class="btn btn-primary">Get Recipe Details</button>
   
      </div>
@@ -58,3 +59,4 @@
   </div>
     
   </div> 
+</div>

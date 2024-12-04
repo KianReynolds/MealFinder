@@ -41,8 +41,12 @@ body {
   
   h1 {
     text-align: center;
-    margin: 20px 0;
-    color: limegreen;
+    margin: 1rem;
+    color: #030e12;
+    font-size: 48px;
+    letter-spacing: 1px;
+    padding-top: 2rem;
+
   }
   
   
@@ -140,5 +144,32 @@ body {
       padding: 10px;
       text-align: center;
     }
+
   }
+
+  .main{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .form-control{
+    margin: 1rem;
+    width: 400px;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    padding: 0.3rem 1rem;
+  }
+
+  .btn-primary{
+    
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    padding: 0.3rem 1rem;
+  }
+
   
