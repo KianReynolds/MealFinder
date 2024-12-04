@@ -16,20 +16,20 @@ body {
   
   
   .navbar {
-    background-color: limegreen;
+    background-color: grey;
     padding: 10px 15px;
-    
+    width: 100%;
   }
   
   .navbar-nav .nav-link {
-    color: blue;
+    color: limegreen;
     padding: 10px 15px;
     text-transform: uppercase;
     font-weight: bold;
   }
   
   .navbar-nav .nav-link.active {
-    background-color: limegreen;
+    background-color: green;
     border-radius: 5px;
   }
   
@@ -104,6 +104,14 @@ body {
     border-radius: 10px;
     margin-top: 20px;
     margin-bottom: 40px;
+  }
+
+  .btn-limegreen {
+    background-color: limegreen;
+    color: white;
+  }
+  .btn-limegreen:hover {
+    background-color: green; 
   }
   
   @media (max-width: 768px) {
