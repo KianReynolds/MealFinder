@@ -13,27 +13,27 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Meal Finder';
+   title = 'Meal Finder';
  
-  mealData:themealdbResponse | undefined;
+  // mealData:themealdbResponse | undefined;
   
-  errorMessage:any;
+  // errorMessage:any;
 
-  constructor(
-    private _mealdbService:themealdbApiService,
+  // constructor(
+  //   private _mealdbService:themealdbApiService,
     
-  ) {}
+  // ) {}
 
   
-  getMealDetails(queryName:string) : void {
-    this._mealdbService.getMealData(queryName).subscribe(
-      result => {
-        this.mealData = result;
-        console.log(this.mealData?.meals);
-      },
-      error => this.errorMessage = <any>error
-    );
-  }
+  // getMealDetails(queryName:string) : void {
+  //   this._mealdbService.getMealData(queryName).subscribe(
+  //     result => {
+  //       this.mealData = result;
+  //       console.log(this.mealData?.meals);
+  //     },
+  //     error => this.errorMessage = <any>error
+  //   );
+  // }
 
    
 }
