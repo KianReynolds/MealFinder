@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable,throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs';
-import { Meal, themealdbResponse } from '../mealdbresponse';
+import { Meal, themealdbResponse } from '../../interfaces/mealdbresponse';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Meal, themealdbResponse } from '../mealdbresponse';
 })
 export class themealdbApiService {
 
-private _siteURL = `http://localhost:3001/api/v1/meals/`;
+private _siteURL = `http://localhost:3000/api/v1/meals/`;
 
 private handleError(err:HttpErrorResponse){
   console.log('OmdbApiService:'+err.message);

@@ -73,4 +73,16 @@ input:focus, select:focus {
   }
 }
 
-  
+  .container-fluid {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+    
+  }
+
+  .navbar {
+    background-color: limegreen;
+    padding: 10px 15px;
+    
+  }
