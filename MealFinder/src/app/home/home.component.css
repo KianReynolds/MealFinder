@@ -1,8 +1,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: white;
     color: black;
+    background-color: #fcde67;
   }
   
 
@@ -96,6 +96,7 @@ body {
   h3 {
     color: black;
     margin-bottom: 15px;
+    text-align: center;
   }
   
   p {
@@ -180,4 +181,34 @@ body {
     padding: 0.3rem 1rem;
   }
 
+  .container-card{
+    width: 80%;
+    display: grid;
+    margin: 25px auto;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    grid-gap:2rem;
+  }
+   .card-desc{
+    width:180px;
+    border-radius: 1rem;
+    background-color: #030e12;
+    padding: 5px;
+  }
+  .card-desc img{
+    width: 100%;
+    border-radius:1rem 1rem 0 0;
+  }
+  .card-desc h3{
+    color: white;
+    font-size: 18px;
+  } 
+
+  .container-card{
+    box-shadow: 10px 10px 40px 5px #e0e0e0;
+    justify-content: space-between;
+    display: flex;
+    padding: 3rem;
+    align-items: center;
+    background-color: gray;
+  }
   
