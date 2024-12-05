@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-index',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './recipe-index.component.html',
   styleUrl: './recipe-index.component.css'
 })

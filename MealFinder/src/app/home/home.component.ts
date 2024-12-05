@@ -4,11 +4,12 @@ import { themealdbResponse } from '../../interfaces/mealdbresponse';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Meal } from '../../interfaces/mealdbresponse';
+import { RecipeIndexComponent } from '../recipe-index/recipe-index.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, RecipeIndexComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

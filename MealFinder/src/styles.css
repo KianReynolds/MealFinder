@@ -10,3 +10,18 @@ body{
   background-color: #fcde67;
 }
 
+.numBox {
+  width: 50px;
+  height: 40px;
+  background-color: #030e12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: 0 5px 0 5px;
+}
+
+.indexContainer{
+  display: flex;
+  margin: 2.5rem;
+}
