@@ -20,7 +20,7 @@ export class SignupComponent {
     allergies: {} as { [key: string]: boolean }
   };
 
-  allergyOptions = ['Peanuts', 'Dairy', 'Gluten', 'Shellfish'];
+  allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish'];
 
   constructor(private signupService: AuthService) {}
 
