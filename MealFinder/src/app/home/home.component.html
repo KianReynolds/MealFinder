@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,81 +33,90 @@
   </div>
 
   <div class="wrapper">
-  <div class="main">
-    <div class="heading">
-      <h1>Search Your Food Recipe</h1>
-      
-    </div>
-
-    <form>
-      <div class="form-group">
-        <input type="text" name="meal-name" class="form-control" #mealNameInput placeholder="Search">
-        <button (click)="getMealDetails(mealNameInput.value)" type="button" class="btn btn-primary">Get Recipe Details</button>
+    <div class="main">
+      <div class="heading">
+        <h1>Search Your Food Recipe</h1>
       </div>
-    </form>
 
-    <!-- Display the warning message if present -->
-    <div *ngIf="warningMessage" class="alert alert-warning mt-3">
-      {{ warningMessage }}
-    </div>
+      <form>
+        <div class="form-group">
+          <input type="text" name="meal-name" class="form-control" #mealNameInput placeholder="Search">
+          <button (click)="getMealDetails(mealNameInput.value)" type="button" class="btn btn-primary">
+            Get Recipe Details
+          </button>
+        </div>
+      </form>
 
-    <div class="container" *ngIf="mealData">
-      <div *ngIf="mealData.Error">
-        <h3>{{ mealData.Error }}</h3>
+      <!-- Display error message if API request fails -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
       </div>
-      <div class="row" *ngIf="mealData.meals">
-        <div *ngFor="let meal of mealData.meals" class="col-md-6 mb-4">
-          <div class="card">
-            <img [src]="meal.strMealThumb" class="card-img-top" alt="Meal image">
-            <div class="card-body">
-              <h5 class="card-title">{{ meal.strMeal }}</h5>
-              <p class="card-text">
-                <strong>Category:</strong> {{ meal.strCategory }}<br>
-                <strong>Nationality:</strong> {{ meal.strArea }}<br>
-                <strong>Ingredients:</strong> {{ meal.strIngredient1 }}, {{ meal.strIngredient2 }}, {{ meal.strIngredient3 }}
-              </p>
-              <p>
-                <strong>Instructions:</strong><br>
-                {{ meal.strInstructions }}
-              </p>
-              <button class="btn btn-success">Add to Favourites</button>
+
+      <div class="container" *ngIf="mealData">
+        <div class="row" *ngIf="mealData.meals">
+          <div *ngFor="let meal of mealData.meals" class="col-md-6 mb-4">
+            <div class="card">
+              <img [src]="meal.strMealThumb" class="card-img-top" alt="Meal image">
+              <div class="card-body">
+                <h5 class="card-title">{{ meal.strMeal }}</h5>
+                <p class="card-text">
+                  <strong>Category:</strong> {{ meal.strCategory }}<br>
+                  <strong>Nationality:</strong> {{ meal.strArea }}<br>
+                  <strong>Ingredients:</strong> 
+                  <span *ngFor="let ingredient of meal.ingredients; let last = last">
+                    {{ ingredient }}<span *ngIf="!last">, </span>
+                  </span>
+                </p>
+                <p>
+                  <strong>Instructions:</strong><br>
+                  {{ meal.strInstructions }}
+                </p>
+
+                <!-- Allergen warning for this specific meal -->
+                <div *ngIf="meal.containsAllergen" class="alert alert-warning mt-3">
+                  ⚠️ Warning: This recipe contains an allergen you are allergic to: 
+                  <span *ngFor="let allergen of meal.allergens; let last = last">
+                    {{ allergen }}<span *ngIf="!last">, </span>
+                  </span>
+                </div>
+
+                <button class="btn btn-success">Add to Favourites</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
     </div>
 
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
+    <h3>Here are Some Examples:</h3>
+    <div class="container-card">
+      <div class="card-desc">
+        <img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Spicy Arrabiata Penne">
+        <h3>Spicy Arrabiata Penne</h3>
+      </div>
+      <div class="card-desc">
+        <img src="https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg" alt="Apple Frangipan Tart">
+        <h3>Apple Frangipan Tart</h3>
+      </div>
+      <div class="card-desc">
+        <img src="https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg" alt="Apple & Blackberry Crumble">
+        <h3>Apple & Blackberry Crumble</h3>
+      </div>
+      <div class="card-desc">
+        <img src="https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg" alt="Apam balik">
+        <h3>Apam balik</h3>
+      </div>
     </div>
-  </div>
-
-  <h3>Here are Some Examples:</h3>
-  <div class="container-card" onClick>
-    <div class="card-desc">
-      <img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Spicy Arrabiata Penne">
-      <h3>Spicy Arrabiata Penne</h3>
-    </div>
-    <div class="card-desc">
-      <img src="https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg" alt="Apple Frangipan Tart">
-      <h3>Apple Frangipan Tart</h3>
-    </div>
-    <div class="card-desc">
-      <img src="https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg" alt="Apple & Blackberry Crumble">
-      <h3>Apple & Blackberry Crumble</h3>
-    </div>
-    <div class="card-desc">
-      <img src="https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg" alt="Apam balik">
-      <h3>Apam balik</h3>
-    </div>
-    
-  </div>
   </div>
 
   <div class="indexContainer">
     <app-recipe-index></app-recipe-index>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

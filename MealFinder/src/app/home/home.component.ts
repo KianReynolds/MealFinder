@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { themealdbApiService } from '../services/themealdb-api.service';
-import { themealdbResponse } from '../../interfaces/mealdbresponse';
+import { themealdbResponse, Meal } from '../../interfaces/mealdbresponse';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Meal } from '../../interfaces/mealdbresponse';
 import { RecipeIndexComponent } from '../recipe-index/recipe-index.component';
 
 @Component({
@@ -16,44 +15,39 @@ import { RecipeIndexComponent } from '../recipe-index/recipe-index.component';
 export class HomeComponent {
   title = 'Meal Finder';
   mealData: themealdbResponse | undefined;
-  errorMessage: any;
-  allergens = ['fish', 'peanut', 'milk']; // List of hardcoded allergies for the video, we have to change this after inteirm so we take from users allergy in the db
-  warningMessage: string | null = null;
+  errorMessage: string | null = null;
+  allergens = ['fish', 'peanut', 'milk']; // Hardcoded for now, replace with user data from DB
 
-  constructor(
-    private _mealdbService: themealdbApiService,
-  ) {}
+  constructor(private _mealdbService: themealdbApiService) {}
 
   getMealDetails(queryName: string): void {
     this._mealdbService.getMealData(queryName).subscribe(
       result => {
-        this.mealData = result;
-        console.log(this.mealData?.meals);
-        this.checkAllergens(this.mealData?.meals);
+        if (result.meals) {
+          this.mealData = {
+            ...result,
+            meals: result.meals.map(meal => {
+              let ingredients: string[] = [];
+              for (let i = 1; i <= 20; i++) {
+                let ingredient = meal[`strIngredient${i}` as keyof Meal];
+                if (typeof ingredient === "string" && ingredient.trim() !== "") {
+                  ingredients.push(ingredient.toLowerCase());
+                }
+              }
+
+              return {
+                ...meal,
+                ingredients, // Store extracted ingredients
+                allergens: ingredients.filter(ingredient => this.allergens.includes(ingredient)),
+                containsAllergen: ingredients.some(ingredient => this.allergens.includes(ingredient))
+              };
+            })
+          };
+        }
       },
-      error => this.errorMessage = <any>error
+      error => {
+        this.errorMessage = "Failed to fetch meal data. Please try again.";
+      }
     );
   }
-
-  checkAllergens(meals: Meal[] | undefined) {
-    if (!meals) return;
-    
-    
-    this.warningMessage = null;
-
-    // cycle meals ingredients for allergies
-    meals.forEach(meal => {
-      const ingredients = [
-        meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, 
-        meal.strIngredient4, meal.strIngredient5, meal.strIngredient6, 
-        meal.strIngredient7, meal.strIngredient8, meal.strIngredient9
-      ];
-      ingredients.forEach(ingredient => {
-        if (ingredient && this.allergens.includes(ingredient.toLowerCase())) {
-          this.warningMessage = `Warning: This recipe contains an allergen you are allergic to: ${ingredient}.`;
-        }
-      });
-    });
-  }
 }
-
