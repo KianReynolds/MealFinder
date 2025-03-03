@@ -6,11 +6,10 @@ import { CommonModule } from '@angular/common';
 import { RecipeIndexComponent } from '../recipe-index/recipe-index.component';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, RecipeIndexComponent],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, RecipeIndexComponent],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   title = 'Meal Finder';

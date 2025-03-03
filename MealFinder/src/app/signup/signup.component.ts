@@ -7,10 +7,9 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  standalone: true,
-  imports: [FormsModule, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    imports: [FormsModule, CommonModule, RouterOutlet, RouterLink, RouterLinkActive]
 })
 export class SignupComponent {
   user = {
@@ -31,12 +30,21 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    
-    this.signupService.signup(this.user).subscribe(response => {
-      console.log('Signup successful!', response);
-    }, error => {
-      console.error('Signup failed!', error);
-    });
+    // sign up w firebase
+    this.signupService.firebaseSignUp(this.user.email, this.user.password)
+      .then(user => {
+        console.log('Firebase sign-up successful:', user);
+
+        // after firebase is successfull call backend
+        this.signupService.signup(this.user).subscribe(response => {
+          console.log('API sign-up successful!', response);
+        }, error => {
+          console.error('API sign-up failed!', error);
+        });
+      })
+      .catch(error => {
+        console.error('Firebase sign-up failed!', error);
+      });
   }
 }
 

@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
-  selector: 'app-location',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterLink, RouterLinkActive, GoogleMapsModule],
-  templateUrl: './location.component.html',
-  styleUrl: './location.component.css'
+    selector: 'app-location',
+    imports: [RouterOutlet, CommonModule, RouterLink, RouterLinkActive, GoogleMapsModule],
+    templateUrl: './location.component.html',
+    styleUrl: './location.component.css'
 })
 export class LocationComponent {
 
