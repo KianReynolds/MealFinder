@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe Finder - Auth</title>
+  <title>Recipe Finder account details</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -27,10 +27,73 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/auth" routerLinkActive="active">Signup/Login</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/accountdetails" routerLinkActive="active" >Account Details</a>
+          </li>
         </ul>
       </div>
     </nav>
   </div>
+ 
+  <div class="container mt-5">
+    <h2>Account Management</h2>
     
+    
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4>User Information</h4>
+      </div>
+      <div class="card-body">
+        <p><strong>First Name:</strong> John</p>
+        <p><strong>Last Name:</strong> Doe</p>
+        <p><strong>Email:</strong> johndoe &#64;example.com</p>
+      </div>
+    </div>
+
+   
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4>Update Food Preferences</h4>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label for="glutenFree">Gluten Free</label>
+            <input type="checkbox" id="glutenFree" class="form-check-input">
+          </div>
+          <div class="form-group">
+            <label for="vegetarian">Vegetarian</label>
+            <input type="checkbox" id="vegetarian" class="form-check-input">
+          </div>
+          <div class="form-group">
+            <label for="vegan">Vegan</label>
+            <input type="checkbox" id="vegan" class="form-check-input">
+          </div>
+          <div class="form-group">
+            <label for="dairyFree">Dairy Free</label>
+            <input type="checkbox" id="dairyFree" class="form-check-input">
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Save Preferences</button>
+        </form>
+      </div>
+    </div>
+
+   
+    <div class="card">
+      <div class="card-header">
+        <h4>Favorited Recipes</h4>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Recipe 1</li>
+          <li>Recipe 2</li>
+          <li>Recipe 3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

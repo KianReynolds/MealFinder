@@ -19,6 +19,7 @@ body {
     background-color: grey;
     padding: 10px 15px;
     width: 100%;
+    border-radius: 50px;
   }
   
   .navbar-nav .nav-link {
