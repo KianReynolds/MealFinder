@@ -1,0 +1,10 @@
+<div *ngIf="show; else notFound">
+    <div *ngFor="let item of items">
+      <h3>{{ item.strMeal }}</h3>
+      <img [src]="item.strMealThumb" alt="{{ item.strMeal }}"/>
+    </div>
+  </div>
+  <ng-template #notFound>
+    <p>No meals found for this letter.</p>
+  </ng-template>
+  

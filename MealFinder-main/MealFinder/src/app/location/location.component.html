@@ -1,0 +1,124 @@
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" aria-current="page">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/allergies" routerLinkActive="active" aria-current="page">Allergies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/location" routerLinkActive="active" aria-current="page">Location</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about" routerLinkActive="active" aria-current="page">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/signup" routerLinkActive="active" aria-current="page">Sign in</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+
+  
+
+  <!-- <input #searchInput type="text" placeholder="Search for a place" />
+  <div #mapContainer id="map"></div> -->
+  
+
+  <div class="location-container">
+  <div class="search-container">
+    <h2>Find Shops in County Sligo</h2>
+    
+    <!-- Place autocomplete search -->
+    <div class="search-box">
+      <label for="location-search">Search by location:</label>
+      <input 
+        id="location-search"
+        #searchInput
+        type="text" 
+        placeholder="Enter a location in Sligo"
+        class="search-input"
+      >
+    </div>
+    
+    <!-- Text search for shops -->
+    <div class="search-box">
+      <label for="shop-search">Search Sligo shops:</label>
+      <input 
+        id="shop-search"
+        #textSearchInput
+        type="text" 
+        placeholder="Search for shops by name, type, or town"
+        class="search-input"
+      >
+    </div>
+  </div>
+
+  <!-- Map container -->
+  <div id="map" #mapContainer class="map-container"></div>
+
+  <!-- Shops results list -->
+  <div class="shops-list">
+    <h3>Shops in Sligo ({{filteredShops.length}} results)</h3>
+    <div *ngIf="filteredShops.length === 0" class="no-results">
+      No shops found matching your search.
+    </div>
+    <ul>
+      <li *ngFor="let shop of filteredShops" class="shop-item">
+        <h4>{{shop.name}}</h4>
+        <p>{{shop.category}} - {{shop.town}}</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  
+
+<!-- <script>
+  let map;
+  let autocomplete;
+
+  function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+  initAutocomplete();
+}
+
+  function initAutocomplete(){
+    autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'),
+      {
+        types: ['establishment'],
+        componentRestrictions: {'country': ['AU']},
+        fields: ['place_id', 'geometry', 'name']
+
+      });
+
+      autocomplete.addListener('place_changed', onPlaceChanged);
+  }
+
+
+  function onPlaceChanged() {
+    var place = autocomplete.getPlace();
+
+    if (!place.geometry) {
+      document.getElementById('autocomplete').placeholder =
+      'Enter a place';
+    } else {
+    document.getElementById('details').innerHTML = place.name;
+    map.setCenter(place.geometry.location);
+    new google.maps.Marker({
+      map: map,
+      position: place.geometry.location,
+      title: place.name,
+    });
+    }
+} -->
