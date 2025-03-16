@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive]
 })
 export class AuthComponent {
-  isLoginMode = true; // Toggle between login and signup
+  isLoginMode = true; // toggle between the signup and login forms
 
   user = {
     fname: '',
@@ -31,7 +31,7 @@ export class AuthComponent {
   }
 
   toggleMode(event: Event) {
-    event.preventDefault(); // Prevents the page from refreshing
+    event.preventDefault(); 
     this.isLoginMode = !this.isLoginMode;
   }
   
