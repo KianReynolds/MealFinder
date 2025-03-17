@@ -6,12 +6,15 @@ import { CommonModule } from '@angular/common';
 import { RecipeIndexComponent } from '../recipe-index/recipe-index.component';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
-import { User } from '@angular/fire/auth'; 
+import { User } from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 @Component({
-    selector: 'app-home',
-    imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, RecipeIndexComponent],
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+  selector: 'app-home',
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, RecipeIndexComponent],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   title = 'Meal Finder';
@@ -21,10 +24,10 @@ export class HomeComponent {
   
   user$: Observable<User | null>;
 
-  // Combine both dependencies into a single constructor
   constructor(
     private authService: AuthService,
-    private _mealdbService: themealdbApiService
+    private _mealdbService: themealdbApiService,
+    private http: HttpClient
   ) {
     this.user$ = this.authService.user$;
   }
@@ -51,7 +54,7 @@ export class HomeComponent {
 
               return {
                 ...meal,
-                ingredients, // Store extracted ingredients
+                ingredients, 
                 allergens: ingredients.filter(ingredient => this.allergens.includes(ingredient)),
                 containsAllergen: ingredients.some(ingredient => this.allergens.includes(ingredient))
               };
@@ -63,5 +66,43 @@ export class HomeComponent {
         this.errorMessage = "Failed to fetch meal data. Please try again.";
       }
     );
+  }
+
+ 
+  addToFavourites(meal: any): void {
+    this.user$.subscribe(user => {
+      if (user) {
+      
+        this.addMealToFavorites(user.uid, meal);
+      } else {
+       
+        alert('You must be logged in to add meals to your favourites!');
+      }
+    });
+  }
+
+  addMealToFavorites(firebaseId: string, meal: any): void {
+    const favoriteMeal = {
+      idMeal: meal.idMeal,
+      strMeal: meal.strMeal,
+      strMealThumb: meal.strMealThumb,
+      strCategory: meal.strCategory,
+      strArea: meal.strArea,
+      strInstructions: meal.strInstructions,
+      strIngredients: meal.strIngredients,
+      strSource: meal.strSource,
+      strYoutube: meal.strYoutube
+    };
+
+    
+    this.http.post(`${environment.apiUrl}/meals/${firebaseId}/favorites`, favoriteMeal)
+      .subscribe(
+        response => {
+          console.log('Meal added to favourites successfully!', response);
+        },
+        error => {
+          console.error('Error adding meal to favourites', error);
+        }
+      );
   }
 }

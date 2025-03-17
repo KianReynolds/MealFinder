@@ -2,93 +2,115 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #fcde67 ;
-  
+  background-color: #fcde67;
   color: black;
 }
 
-.navbar {
-    background-color: grey;
-    padding: 10px 15px;
-    width: 100%;
-    border-radius: 50px;
-  }
-  
-  .navbar-nav .nav-link {
-    color: limegreen;
-    padding: 10px 15px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-  
-  .navbar-nav .nav-link.active {
-    background-color: green;
-    border-radius: 5px;
-  }
-  
-  .navbar-nav .nav-link:hover {
-    background-color: greenyellow;
-    border-radius: 5px;
-  }
 
-.container {
-  height: 100vh;
+.navbar {
+  background-color: grey;
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 50px;
 }
 
-.box-area {
-  width: 450px;
+.navbar-nav .nav-link {
+  color: limegreen;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link.active {
+  background-color: green;
+  border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: greenyellow;
+  border-radius: 5px;
+}
+
+.logout-btn {
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: darkred;
+}
+
+/* User Info & Favorites Styling */
+.user-card, .favorites-card {
   background: white;
-  padding: 30px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  color: #333;
-  font-size: 28px;
-  font-weight: 500;
-  text-align: left;
+.card-header {
+  background-color: #29a3a8;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-p {
-  color: #555;
-  font-size: 16px;
-  text-align: left;
+
+.favorite-item {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
 }
 
-.form-control {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.favorite-content {
+  display: flex;
+  gap: 15px;
+}
+
+.meal-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.meal-info {
+  flex-grow: 1;
 }
 
 .btn-primary {
   background-color: #29a3a8;
   border: none;
-  padding: 12px;
+  padding: 8px 12px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .btn-primary:hover {
   background-color: #218c91;
 }
 
-a {
-  cursor: pointer;
-  color: #29a3a8;
-  font-weight: bold;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    border-radius: 0;
+  }
+  
+  .favorite-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-a:hover {
-  text-decoration: underline;
-}
-
-
-@media only screen and (max-width: 768px) {
-  .box-area {
-    width: 90%;
-    padding: 20px;
+  .meal-img {
+    width: 150px;
+    height: 150px;
   }
 }
