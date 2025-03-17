@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '@angular/fire/auth'; 
+
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -13,7 +14,6 @@ import { User } from '@angular/fire/auth';
   styleUrls: ['./auth.component.css'],
   imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive]
 })
-
 export class AuthComponent {
   isLoginMode = true; // Toggle between signup and login forms
 
@@ -27,11 +27,11 @@ export class AuthComponent {
 
   allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish'];
 
-  user$: Observable<User | null>; // Observable to track user state
+  user$: Observable<User | null>; 
 
-  // Combine all dependencies in a single constructor
+  
   constructor(private authService: AuthService, private router: Router) {
-    this.user$ = this.authService.user$; // Subscribe to user state from AuthService
+    this.user$ = this.authService.user$;
   }
 
   get selectedAllergiesCount(): number {
@@ -56,19 +56,19 @@ export class AuthComponent {
         });
     } else {
       // Signup logic
-      this.authService.firebaseSignUp(this.user.email, this.user.password)
-        .then(user => {
-          console.log('Firebase sign-up successful:', user);
-          this.authService.signup(this.user).subscribe(response => {
-            console.log('API sign-up successful!', response);
-            this.router.navigate(['/']);
-          }, error => {
-            console.error('API sign-up failed!', error);
-          });
-        })
-        .catch(error => {
-          console.error('Firebase sign-up failed:', error);
-        });
+      this.authService.firebaseSignUp(
+        this.user.fname,
+        this.user.lname,
+        this.user.email,
+        this.user.password,
+        this.user.allergies
+      ).then(user => {
+        console.log('Firebase sign-up successful:', user);
+        this.router.navigate(['/']); // Redirect to home page after sign-up
+      })
+      .catch(error => {
+        console.error('Firebase sign-up failed:', error);
+      });
     }
   }
 
