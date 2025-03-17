@@ -4,6 +4,24 @@ import User from "../models/user";
 
 const router = express.Router();
 
+// Route to fetch user by firebaseId
+router.get('/:firebaseId', async (req: Request, res: Response): Promise<void> => {
+    const firebaseId = req.params.firebaseId;
+
+    try {
+        const query = { firebaseId };
+        const user = await usersCollection.findOne(query);
+
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (error) {
+        console.error(`Error retrieving user: ${error}`);
+        res.status(400).send('Unable to retrieve user');
+    }
+});
 router.post('/signup', async (req: Request, res: Response): Promise<void> => {
     try {
         const { fname, lname, allergies, firebaseId } = req.body;
@@ -44,5 +62,7 @@ router.post('/signup', async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
 
 export default router;
