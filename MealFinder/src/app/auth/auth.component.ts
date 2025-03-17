@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { User } from '@angular/fire/auth'; 
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -11,8 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.css'],
   imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive]
 })
+
 export class AuthComponent {
-  isLoginMode = true; // toggle between the signup and login forms
+  isLoginMode = true; // Toggle between signup and login forms
 
   user = {
     fname: '',
@@ -24,7 +27,12 @@ export class AuthComponent {
 
   allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish'];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  user$: Observable<User | null>; // Observable to track user state
+
+  // Combine all dependencies in a single constructor
+  constructor(private authService: AuthService, private router: Router) {
+    this.user$ = this.authService.user$; // Subscribe to user state from AuthService
+  }
 
   get selectedAllergiesCount(): number {
     return Object.keys(this.user.allergies).filter(allergy => this.user.allergies[allergy]).length;
@@ -41,7 +49,7 @@ export class AuthComponent {
       this.authService.firebaseSignIn(this.user.email, this.user.password)
         .then(user => {
           console.log('Login successful:', user);
-          this.router.navigate(['/']); // Redirect to home page
+          this.router.navigate(['/']); 
         })
         .catch(error => {
           console.error('Login failed:', error);
@@ -53,7 +61,7 @@ export class AuthComponent {
           console.log('Firebase sign-up successful:', user);
           this.authService.signup(this.user).subscribe(response => {
             console.log('API sign-up successful!', response);
-            this.router.navigate(['/']); // Redirect to home page after signup
+            this.router.navigate(['/']);
           }, error => {
             console.error('API sign-up failed!', error);
           });
@@ -62,5 +70,9 @@ export class AuthComponent {
           console.error('Firebase sign-up failed:', error);
         });
     }
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

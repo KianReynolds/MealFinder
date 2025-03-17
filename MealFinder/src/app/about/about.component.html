@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light">
     <div id="navbarNav">
       <ul class="navbar-nav">
@@ -12,11 +11,20 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/about" routerLinkActive="active" aria-current="page">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/auth" routerLinkActive="active" aria-current="page">Signup/login</a>
+
+        <!-- displays the login if user isnt logged in-->
+        <li class="nav-item" *ngIf="!(user$ | async)">
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active" aria-current="page">Signup/Login</a>
         </li>
-        <li class="nav-item">
+
+        <!-- account details is viewable on navbar if signed in -->
+        <li class="nav-item" *ngIf="user$ | async">
           <a class="nav-link" routerLink="/accountdetails" routerLinkActive="active" aria-current="page">Account Details</a>
+        </li>
+
+        <!-- logout button if user is logged in-->
+        <li class="nav-item" *ngIf="user$ | async">
+          <button class="btn btn-danger nav-link" (click)="logout()">Logout</button>
         </li>
       </ul>
     </div>
