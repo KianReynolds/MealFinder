@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -24,7 +24,7 @@ export class AuthComponent {
 
   allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish'];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   get selectedAllergiesCount(): number {
     return Object.keys(this.user.allergies).filter(allergy => this.user.allergies[allergy]).length;
@@ -41,6 +41,7 @@ export class AuthComponent {
       this.authService.firebaseSignIn(this.user.email, this.user.password)
         .then(user => {
           console.log('Login successful:', user);
+          this.router.navigate(['/']); // Redirect to home page
         })
         .catch(error => {
           console.error('Login failed:', error);
@@ -52,12 +53,13 @@ export class AuthComponent {
           console.log('Firebase sign-up successful:', user);
           this.authService.signup(this.user).subscribe(response => {
             console.log('API sign-up successful!', response);
+            this.router.navigate(['/']); // Redirect to home page after signup
           }, error => {
             console.error('API sign-up failed!', error);
           });
         })
         .catch(error => {
-          console.error('Firebase sign-up failed!', error);
+          console.error('Firebase sign-up failed:', error);
         });
     }
   }
