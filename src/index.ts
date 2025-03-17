@@ -22,7 +22,7 @@ app.use('/api/v1/users', userRoutes)
 
 app.use('/api/v1/meals', mealRoutes)
 
-app.use('/signup/signup', authRoutes); 
+app.use('/signup', authRoutes);
 
 app.get("/ping", async (req : Request, res: Response) => {
     res.send({

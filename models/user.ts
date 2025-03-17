@@ -1,10 +1,10 @@
 import { ObjectId } from "mongodb";
 
 export default interface User {
-    id?: ObjectId;           
-    fname: string;            
-    lname: string;            
-    email: string;           
-    password: string;         
-    allergies: string[];      
+    _id?: ObjectId;            
+    firebaseId: string;            
+    fname: string;                
+    lname: string;                             
+    allergies: { [key: string]: boolean };  
+    favorites: string[];           
 }
