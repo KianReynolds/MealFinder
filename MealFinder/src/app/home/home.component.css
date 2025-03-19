@@ -237,3 +237,24 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+
+.image-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: auto; 
+  margin: 20px 0; 
+  padding: 0; 
+}
+
+.spinning-image {
+  width: 300px; 
+  height: auto;
+  transition: transform 1s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.spinning-image:hover {
+  transform: rotateY(360deg);
+}
