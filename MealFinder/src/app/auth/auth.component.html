@@ -71,21 +71,24 @@
           <input type="password" id="password" required [(ngModel)]="user.password" name="password" class="form-control">
         </div>
 
-        <div class="mb-3" *ngIf="!isLoginMode">
-          <label for="allergies">Select Allergies (optional):</label>
-          <div *ngFor="let allergy of allergyOptions">
-            <input type="checkbox" id="allergy-{{allergy}}" [(ngModel)]="user.allergies[allergy]" name="allergy-{{allergy}}" class="form-check-input">
-            <label for="allergy-{{allergy}}" class="form-check-label">{{allergy}}</label>
+        <div class="row mb-3" *ngIf="!isLoginMode">>
+          <div class="col-md-6">
+            <label for="allergies">Select Allergies (optional):</label>
+            <div *ngFor="let allergy of allergyOptions">
+              <input type="checkbox" id="allergy-{{allergy}}" [(ngModel)]="user.allergies[allergy]" name="allergy-{{allergy}}" class="form-check-input">
+              <label for="allergy-{{allergy}}" class="form-check-label">{{allergy}}</label>
+            </div>
+          </div>
+        
+          <div class="col-md-6">
+            <label for="preferences">Select Preferences (optional):</label>
+            <div *ngFor="let preference of preferenceOptions">
+              <input type="checkbox" id="preference-{{preference}}" [(ngModel)]="user.preferences[preference]" name="preference-{{preference}}" class="form-check-input">
+              <label for="preference-{{preference}}" class="form-check-label">{{preference}}</label>
+            </div>
           </div>
         </div>
-        
-        <div class="mb-3" *ngIf="!isLoginMode">
-          <label for="preferences">Select Preferences (optional):</label> 
-          <div *ngFor="let preference of preferenceOptions">
-            <input type="checkbox" id="preference-{{preference}}" [(ngModel)]="user.preferences[preference]" name="preference-{{preference}}" class="form-check-input">
-            <label for="preference-{{preference}}" class="form-check-label">{{preference}}</label>
-          </div>
-        </div>        
+               
 
         <div class="input-group mb-3">
           <button type="submit" class="btn btn-lg btn-primary w-100">
