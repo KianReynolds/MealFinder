@@ -78,6 +78,14 @@
             <label for="allergy-{{allergy}}" class="form-check-label">{{allergy}}</label>
           </div>
         </div>
+        
+        <div class="mb-3" *ngIf="!isLoginMode">
+          <label for="preferences">Select Preferences (optional):</label> 
+          <div *ngFor="let preference of preferenceOptions">
+            <input type="checkbox" id="preference-{{preference}}" [(ngModel)]="user.preferences[preference]" name="preference-{{preference}}" class="form-check-input">
+            <label for="preference-{{preference}}" class="form-check-label">{{preference}}</label>
+          </div>
+        </div>        
 
         <div class="input-group mb-3">
           <button type="submit" class="btn btn-lg btn-primary w-100">

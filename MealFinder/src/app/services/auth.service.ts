@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   // firebase signing up and sending data to mongo
-  firebaseSignUp(fname: string, lname: string, email: string, password: string, allergies: { [key: string]: boolean }) {
+  firebaseSignUp(fname: string, lname: string, email: string, password: string, allergies: { [key: string]: boolean; }, preferences: { [key: string]: boolean; }) {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const firebaseUser = userCredential.user;

@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from '@angular/fire/auth'; 
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-auth',
@@ -22,20 +22,25 @@ export class AuthComponent {
     lname: '',
     email: '',
     password: '',
-    allergies: {} as { [key: string]: boolean }
+    allergies: {} as { [key: string]: boolean },
+    preferences: {} as { [key: string]: boolean }
   };
 
   allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish'];
-
+  preferenceOptions = ['Onions', 'Mushroom', 'Cheese', 'Garlic'];
+  
   user$: Observable<User | null>; 
 
-  
   constructor(private authService: AuthService, private router: Router) {
     this.user$ = this.authService.user$;
   }
 
   get selectedAllergiesCount(): number {
     return Object.keys(this.user.allergies).filter(allergy => this.user.allergies[allergy]).length;
+  }
+
+  get selectedPreferencesCount(): number {
+    return Object.keys(this.user.preferences).filter(preference => this.user.preferences[preference]).length;
   }
 
   toggleMode(event: Event) {
@@ -61,7 +66,8 @@ export class AuthComponent {
         this.user.lname,
         this.user.email,
         this.user.password,
-        this.user.allergies
+        this.user.allergies,
+        this.user.preferences
       ).then(user => {
         console.log('Firebase sign-up successful:', user);
         this.router.navigate(['/']); // Redirect to home page after sign-up
