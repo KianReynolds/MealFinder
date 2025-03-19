@@ -3,12 +3,27 @@
 <head>
   <meta charset="utf-8">
   <title>Meal Finder</title>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEXdYBm7wuzEPxSbCalMYkAmVKGzURyJo"></script>
+  <script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU6WuUJ0lZbsf6hUR0jU2q39EOThFOlAo&loading=async&libraries=places&callback=initMap">
+  </script>
+ <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU6WuUJ0lZbsf6hUR0jU2q39EOThFOlAo&libraries=places"></script> -->
+
+  
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    function initMap() {
+      
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
+      });
+    }
+  </script>
+  
 </body>
 </html>

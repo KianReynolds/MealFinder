@@ -12,6 +12,7 @@
           <a class="nav-link" routerLink="/about" routerLinkActive="active" aria-current="page">About</a>
         </li>
 
+        
         <!-- displays the login if user isnt logged in-->
         <li class="nav-item" *ngIf="!(user$ | async)">
           <a class="nav-link" routerLink="/auth" routerLinkActive="active" aria-current="page">Signup/Login</a>
@@ -25,19 +26,65 @@
         <!-- logout button if user is logged in-->
         <li class="nav-item" *ngIf="user$ | async">
           <button class="btn btn-danger nav-link" (click)="logout()">Logout</button>
-        </li>
+        
       </ul>
     </div>
   </nav>
 </div>
+ <div class="location-container">
+      <div class="search-container">
+        <h2>Find Shops in County Sligo</h2>
+        
+       
+        <div class="search-box">
+          <label for="location-search">Search by location:</label>
+          <input 
+            id="location-search"
+            #searchInput
+            type="text" 
+            placeholder="Enter a location in Sligo"
+            class="search-input"
+          >
+        </div>
+        
+        <!-- Text search for shops -->
+        <div class="search-box">
+          <label for="shop-search">Search Sligo shops:</label>
+          <input 
+            id="shop-search"
+            #textSearchInput
+            type="text" 
+            placeholder="Search for shops by name, type, or town"
+            class="search-input"
+          >
+        </div>
+      </div>
+
+      <!-- Map container with inline dimensions -->
+      <div id="map" #mapElement style="width: 100%; height: 400px; min-height: 400px; position: relative;"></div>
+
+      <!-- Shops results list -->
+      <div class="shops-list">
+        <h3>Shops in Sligo ({{filteredShops.length}} results)</h3>
+        <div *ngIf="filteredShops.length === 0" class="no-results">
+          No shops found matching your search.
+        </div>
+        <ul>
+          <li *ngFor="let shop of filteredShops" class="shop-item">
+            <h4>{{shop.name}}</h4>
+            <p>{{shop.category}} - {{shop.town}}</p>
+          </li>
+        </ul>
+      </div>
+    </div> 
 
 
-<div class="map-container">
+<!-- <div class="map-container">
     <google-map
         height="400px"
         width="100%">
     </google-map>
-</div>
+</div> -->
 
 <div class="footer">
   <p>Meal Finder 2025 ® </p>
