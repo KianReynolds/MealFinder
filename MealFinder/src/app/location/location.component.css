@@ -6,30 +6,22 @@ body {
   }
   
 
-  .container-fluid {
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin: 0 auto;
-    
-  }
-  
-  
   .navbar {
-    background-color: limegreen;
+    background-color: grey;
     padding: 10px 15px;
-    
+    width: 100%;
+    border-radius: 50px;
   }
   
   .navbar-nav .nav-link {
-    color: blue;
+    color: limegreen;
     padding: 10px 15px;
     text-transform: uppercase;
     font-weight: bold;
   }
   
   .navbar-nav .nav-link.active {
-    background-color: limegreen;
+    background-color: green;
     border-radius: 5px;
   }
   
