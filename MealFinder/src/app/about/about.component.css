@@ -138,3 +138,26 @@ img {
 .centered-button:hover {
   background-color: greenyellow;
 }
+
+.hover-move {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hover-move:hover {
+  transform: translateY(-10px);
+}
+
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: grey;
+  color: white;
+  text-align: center;
+  font-size: 20px;  
+  padding: 20px 0;  
+  height: 80px;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
