@@ -8,7 +8,7 @@ import {
   //getMealCategories,
   //getMealIngredients,
   addMealToFavorites, // Import the addMealToFavorites controller
-  //removeMealFromFavorites,
+  removeMealFromFavorites,
 } from "../controllers/meals"; // Add the function here
 
 const router = express.Router();
@@ -24,7 +24,7 @@ router.get("/:letter", getMealsByLetter);
 
 // Route to add meal to user's favourites
 router.post("/:firebaseId/favorites", addMealToFavorites);
-
+router.delete("/:firebaseId/favorites/:mealId", removeMealFromFavorites);
 //router.delete("/:firebaseId/favorites/:recipeId", removeMealFromFavorites); 
 export default router;
 

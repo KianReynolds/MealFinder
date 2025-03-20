@@ -36,39 +36,30 @@ export const addMealToFavorites = async (req: Request, res: Response): Promise<v
   }
 };
 
-export const removeMealFromFavorites = async (req: Request, res: Response) => {
-  const { firebaseId, recipeId } = req.params; // Get user ID and recipe ID from URL params
-
+export const removeMealFromFavorites = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Find the user in the database using the firebaseId
+    const { firebaseId, mealId } = req.params;
+
     const user = await usersCollection.findOne({ firebaseId });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: "User not found" });
+      return;
     }
 
-    // Ensure favorites is an array of strings (meal IDs)
-    if (!Array.isArray(user.favorites)) {
-      return res.status(500).json({ message: "Invalid favorites format" });
-    }
-
-    // Remove the meal ID from the user's favorites
-    const updatedFavorites = user.favorites.filter((favorite: string) => favorite !== recipeId);
-
-    // Update the user document to save the new favorites list
     const updatedUser = await usersCollection.updateOne(
       { firebaseId },
-      { $set: { favorites: updatedFavorites } }
+      { $pull: { favorites: { idMeal: mealId } } } // Remove the meal from favorites
     );
 
     if (updatedUser.modifiedCount === 1) {
-      return res.status(200).json({ message: "Meal removed from favorites" });
+      res.status(200).json({ message: "Meal removed from favorites" });
     } else {
-      return res.status(500).json({ message: "Failed to remove meal from favorites" });
+      res.status(500).json({ message: "Failed to remove meal from favorites" });
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
