@@ -22,6 +22,10 @@ export class AccountDetailsComponent implements OnInit {
     this.user$ = this.authService.user$;
   }
 
+  objectKeys(obj: any): string[] {
+    return obj ? Object.keys(obj) : [];
+  }
+
   ngOnInit(): void {
     // Fetch user data after the user is authenticated
     this.user$.subscribe(user => {
@@ -35,13 +39,14 @@ export class AccountDetailsComponent implements OnInit {
     // Make the GET request to fetch the user data
     this.http.get(`${environment.apiUrl}/users/${firebaseId}`).subscribe(
       (data: any) => {
-        this.userData = data;  // Store the user data
+        this.userData = data;  // Store the user data, including allergies
       },
       error => {
         console.error('Error fetching user data:', error);
       }
     );
   }
+
   removeFromFavorites(favorite: any): void {
     this.user$.subscribe(user => {
       if (user) {
@@ -64,6 +69,7 @@ export class AccountDetailsComponent implements OnInit {
       }
     });
   }
+
   logout() {
     this.authService.signOut();
   }

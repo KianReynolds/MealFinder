@@ -26,7 +26,7 @@ export class AuthComponent {
     preferences: {} as { [key: string]: boolean }
   };
 
-  allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish'];
+  allergyOptions = ['Peanuts', 'Milk', 'Gluten', 'Shellfish','Chicken'];
   preferenceOptions = ['Onions', 'Mushroom', 'Cheese', 'Garlic'];
   
   user$: Observable<User | null>; 

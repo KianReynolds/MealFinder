@@ -49,8 +49,16 @@
 
       <form>
         <div class="form-group">
-          <input type="text" name="meal-name" class="form-control" #mealNameInput placeholder="Enter your Ingredients">
-          <button (click)="getMealDetails(mealNameInput.value)" type="button" class="btn btn-primary">
+          <input 
+            type="text" 
+            name="meal-name" 
+            class="form-control" 
+            #mealNameInput 
+            placeholder="Enter ingredients (e.g., chicken, rice)">
+          <button 
+            (click)="getMealDetails(mealNameInput.value)" 
+            type="button" 
+            class="btn btn-primary">
             Find Recipes
           </button>
         </div>

@@ -18,9 +18,11 @@ private handleError(err:HttpErrorResponse){
 }
   constructor(private _http:HttpClient) { }
 
-  getMealData(strMeal:string):Observable<themealdbResponse> {
-    return this._http.get<themealdbResponse>(this._siteURL+ strMeal).pipe(
-    catchError(this.handleError)
+  getMealData(ingredients: string[]): Observable<themealdbResponse> {
+    // Construct the query string for multiple ingredients
+    const query = ingredients.join(',');  // Convert the array into a comma-separated string
+    return this._http.get<themealdbResponse>(`${this._siteURL}${query}`).pipe(
+      catchError(this.handleError)
     );
   }
 
