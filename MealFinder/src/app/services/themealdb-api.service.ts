@@ -3,14 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable,throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs';
 import { Meal, themealdbResponse } from '../../interfaces/mealdbresponse';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class themealdbApiService {
 
-private _siteURL = `http://localhost:3000/api/v1/meals/`;
+private _siteURL = `${environment.apiUrl}/meals/`;;
 
 private handleError(err:HttpErrorResponse){
   console.log('OmdbApiService:'+err.message);

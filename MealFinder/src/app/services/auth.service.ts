@@ -4,13 +4,13 @@ import { Auth, User, createUserWithEmailAndPassword, signInWithEmailAndPassword,
 import { FirebaseError } from 'firebase/app';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/signup'; 
-  
+  private apiUrl = `${environment.apiUrl}/signup`;  // Use production API URL
+
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable(); 
 
@@ -36,7 +36,7 @@ export class AuthService {
         };
 
         // Send user data to MongoDB
-        return this.http.post(`${this.apiUrl}/signup`, userData).toPromise();
+        return this.http.post(`${this.apiUrl}`, userData).toPromise();
       })
       .catch((error: FirebaseError) => {
         console.error('Firebase sign-up error: ', error.message);
