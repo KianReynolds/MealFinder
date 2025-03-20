@@ -44,7 +44,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
   filteredShops: Shop[] = [];
   mapInitialized = false;
   
-  // County bounds for Sligo, Ireland
+  // Restrictions to keep area in Sligo
   sligoBounds = {
     north: 54.4702,
     south: 53.9124,
@@ -61,7 +61,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
-    // Load shops data early
+    
     this.loadShops();
     console.log('Component initialized');
   }
@@ -70,7 +70,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
     console.log('After view init');
     console.log('Map element exists:', !!this.mapElement);
     
-    // Use a longer timeout to ensure the DOM is fully rendered
+    // Timeout for DOM to ready
     setTimeout(() => {
       this.initializeMapWithChecks();
     }, 500);
@@ -81,7 +81,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
     
     if (!this.mapElement) {
       console.error('Map element reference is still null');
-      // Try again after another delay
+  
       setTimeout(() => this.initializeMapWithChecks(), 500);
       return;
     }
@@ -91,14 +91,14 @@ export class LocationComponent implements OnInit, AfterViewInit{
     
     if (!mapDiv) {
       console.error('Map container not found by ID');
-      // Try getting it by another method
+    
       const allDivs = document.querySelectorAll('div');
       console.log('Total divs on page:', allDivs.length);
       
-      // Force component to re-render
+      
       this.cdr.detectChanges();
       
-      // Try again after delay
+      
       setTimeout(() => this.initializeMapWithChecks(), 500);
       return;
     }
@@ -110,24 +110,23 @@ export class LocationComponent implements OnInit, AfterViewInit{
     try {
       console.log('Initializing map now');
       
-      // Use the direct DOM element instead of the ViewChild reference
+    
       const mapElement = document.getElementById('map');
       if (!mapElement) {
         throw new Error('Map element still not found in DOM');
       }
       
-      // Check dimensions
-      console.log('Map element dimensions:', mapElement.offsetWidth, 'x', mapElement.offsetHeight);
       
-      // Ensure map container has dimensions
+      console.log('Map element dimensions:', mapElement.offsetWidth, 'x', mapElement.offsetHeight);
+    
       if (mapElement.offsetHeight === 0) {
         console.warn('Setting explicit height on map container');
         mapElement.style.height = '400px';
       }
       
-      // Create the map instance
+      // Create map
       this.map = new google.maps.Map(mapElement, {
-        center: { lat: 54.2697, lng: -8.4694 }, // Sligo town center
+        center: { lat: 54.2697, lng: -8.4694 }, 
         zoom: 10,
         restriction: {
           latLngBounds: this.sligoBounds,
@@ -137,19 +136,19 @@ export class LocationComponent implements OnInit, AfterViewInit{
 
       console.log('Map object created');
 
-      // Wait for the map to be fully loaded
+      
       google.maps.event.addListenerOnce(this.map, 'idle', () => {
         console.log('Map fully loaded');
         this.mapInitialized = true;
         
-        // Initialize autocomplete after map is ready
+        // Start autocomplete 
         setTimeout(() => {
           this.initAutocomplete();
           
-          // Display initial shop markers
+          // Display shop markers
           this.searchSligoShops("");
           
-          // Force Angular to update UI
+          
           this.cdr.detectChanges();
         }, 100);
       });
@@ -197,7 +196,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
         });
       });
       
-      // Add text search functionality
+      
       if (this.textSearchInput) {
         this.textSearchInput.nativeElement.addEventListener('input', (e: any) => {
           this.ngZone.run(() => {
@@ -211,15 +210,18 @@ export class LocationComponent implements OnInit, AfterViewInit{
   }
   
   private loadShops(): void {
-    // Sample data
     this.shops = [
-      { id: 1, name: "Joe's Cafe", county: "Sligo", town: "Strandhill", category: "Restaurant", location: { lat: 54.3052, lng: -8.5930 } },
-      { id: 2, name: "Sligo Surf Shop", county: "Sligo", town: "Sligo Town", category: "Retail", location: { lat: 54.2731, lng: -8.4755 } },
-      { id: 3, name: "Bean & Gone", county: "Mayo", town: "Ballina", category: "Cafe", location: { lat: 54.1155, lng: -9.1551 } },
-      { id: 4, name: "Sligo Books", county: "Sligo", town: "Tubbercurry", category: "Retail", location: { lat: 54.0516, lng: -8.6869 } },
-      { id: 5, name: "The Linen Shop", county: "Donegal", town: "Bundoran", category: "Retail", location: { lat: 54.4782, lng: -8.2816 } },
-      { id: 6, name: "Sligo Bakery", county: "Sligo", town: "Sligo Town", category: "Food", location: { lat: 54.2697, lng: -8.4725 } },
-      { id: 7, name: "Drumcliff Crafts", county: "Sligo", town: "Drumcliff", category: "Crafts", location: { lat: 54.3302, lng: -8.4958 } }
+      // { id: 1, name: "Tír na nÓg Organics", county: "Sligo", town: "Sligo Town", category: "Organic Store", location: { lat: 54.2730, lng: -8.4767 } },
+      //   { id: 2, name: "Cosgrove & Son Delicatessen", county: "Sligo", town: "Sligo Town", category: "Delicatessen", location: { lat: 54.2738, lng: -8.4767 } },
+      //   { id: 3, name: "Lyons Cafe & Bakeshop", county: "Sligo", town: "Sligo Town", category: "Bakery", location: { lat: 54.2731, lng: -8.4775 } },
+      //   { id: 4, name: "Lauren's Patisserie", county: "Sligo", town: "Sligo Town", category: "Patisserie", location: { lat: 54.2735, lng: -8.4745 }},
+      //   { id: 5, name: "The Wellness Shop", county: "Sligo", town: "Sligo Town", category: "Health Food Store", location: { lat: 54.2725, lng: -8.4770 } }
+        { id: 1, name: "Sligo Organic Vegetables", county: "Sligo", town: "Sligo Town", category: "Groceries", location: { lat: 54.2697, lng: -8.4694 } },
+        { id: 2, name: "The Health Hub", county: "Sligo", town: "Sligo Town", category: "Health Food", location: { lat: 54.2731, lng: -8.4755 } },
+        { id: 3, name: "Strandhill Market", county: "Sligo", town: "Strandhill", category: "Farmers Market", location: { lat: 54.2706, lng: -8.4716 } },
+        { id: 4, name: "Tubbercurry Fresh Produce", county: "Sligo", town: "Tubbercurry", category: "Groceries", location: { lat: 54.0516, lng: -8.6869 } },
+        { id: 5, name: "Drumcliff Farm Foods", county: "Sligo", town: "Drumcliff", category: "Farm Shop", location: { lat: 54.3302, lng: -8.4958 } }
+
     ];
   }
   
@@ -230,23 +232,23 @@ export class LocationComponent implements OnInit, AfterViewInit{
       return;
     }
     
-    // Clear existing markers
+    
     this.clearMarkers();
     
-    // Convert search query to lowercase for case-insensitive matching
-    const query = searchQuery.toLowerCase().trim();
     
-    // First filter for County Sligo shops only
+    const query = searchQuery.toLowerCase().trim();
+  
+    
     const sligoShops = this.shops.filter(shop => 
       shop.county && shop.county.toLowerCase() === 'sligo'
     );
     
-    // Then search within Sligo shops based on the query
+  
     if (query === '') {
-      // If no search term, return all Sligo shops
+    
       this.filteredShops = sligoShops;
     } else {
-      // Search within Sligo shops
+      // Search Sligo shops
       this.filteredShops = sligoShops.filter(shop => {
         return (
           (shop.name && shop.name.toLowerCase().includes(query)) ||
@@ -257,7 +259,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
       });
     }
     
-    // Add markers for filtered shops
+    
     this.displayShopMarkers();
   }
   
@@ -267,7 +269,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
       return;
     }
     
-    // Create bounds to fit all markers
+    
     const bounds = new google.maps.LatLngBounds();
     let hasValidMarkers = false;
     
@@ -279,7 +281,7 @@ export class LocationComponent implements OnInit, AfterViewInit{
           title: shop.name
         });
         
-        // Add info window
+        // The information section
         const infoWindow = new google.maps.InfoWindow({
           content: `<div>
             <h3>${shop.name}</h3>
@@ -297,12 +299,12 @@ export class LocationComponent implements OnInit, AfterViewInit{
       }
     });
     
-    // Adjust map to fit all markers if we have any
+    
     if (hasValidMarkers) {
       try {
         this.map.fitBounds(bounds);
         
-        // If only one result, zoom in more
+      
         if (this.filteredShops.length === 1) {
           this.map.setZoom(15);
         }
