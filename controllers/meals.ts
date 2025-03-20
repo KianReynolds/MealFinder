@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response,RequestHandler } from "express";
 import axios from "axios";
 import { mealsCollection } from "../src/database";
 import { Meal, themealdbResponse } from "../models/meal";
 import { usersCollection } from "../src/database";
 import User from "../models/user";
-
+import { error } from "console";
 const BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
 
@@ -86,6 +86,44 @@ export const getMealByName = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const getMealsByIngredients: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+  const { ingredients } = req.params; // Use params instead of query
+  
+  // Log the ingredients to check what's being received
+  console.log("Ingredients received:", req.params.ingredients);
+
+  if (!ingredients || typeof ingredients !== 'string') {
+    res.status(400).json({ error: "Please provide ingredients separated by commas." });
+    return;
+  }
+
+  const ingredientArray = ingredients.split(',').map(ingredient => ingredient.trim().toLowerCase());
+
+  if (ingredientArray.length === 0) {
+    res.status(400).json({ error: "At least one ingredient must be provided." });
+    return;
+  }
+
+  try {
+    const response = await axios.get(`${BASE_URL}/filter.php`, {
+      params: { i: ingredientArray.join(',') }
+    });
+
+    if (!response.data.meals) {
+      res.status(404).json({ message: "No meals found for the given ingredients." });
+      return;
+    }
+
+    res.status(200).json(response.data);
+    return;
+  } catch (error) {
+    console.error("Error fetching meals by ingredients:", error);
+    res.status(500).json({ error: "Internal server error" });
+    return;
+  }
+};
+
 
 // Fetch meals by the first letter
 export const getMealsByLetter = async (req: Request, res: Response) => {

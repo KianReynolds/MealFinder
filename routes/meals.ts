@@ -9,6 +9,7 @@ import {
   //getMealIngredients,
   addMealToFavorites, // Import the addMealToFavorites controller
   removeMealFromFavorites,
+  getMealsByIngredients,
 } from "../controllers/meals"; // Add the function here
 
 const router = express.Router();
@@ -17,6 +18,7 @@ const router = express.Router();
 //router.post("/sample", insertSampleMeal);
 router.get("/:name", getMealByName);
 router.get("/:letter", getMealsByLetter);
+router.get("/:ingredients", getMealsByIngredients);
 //router.get("/:id", getMealById);
 //router.get("/random", getRandomMeal);
 //router.get("/categories", getMealCategories);
