@@ -43,19 +43,26 @@ export class AccountDetailsComponent implements OnInit {
     );
   }
   removeFromFavorites(favorite: any): void {
-    const firebaseId = this.userData?.firebaseId; // Make sure this is how you access the user's ID
-    const recipeId = favorite.idMeal; // Assuming you use idMeal to identify the recipe
-
-    // Send the request to the backend to remove the recipe from favorites
-    this.http.delete(`${environment.apiUrl}/meals/${firebaseId}/favorites/${recipeId}`).subscribe(
-      () => {
-        // After success, filter out the removed favorite from the list
-        this.userData.favorites = this.userData.favorites.filter((fav: any) => fav.idMeal !== recipeId);
-      },
-      error => {
-        console.error('Error removing recipe from favorites:', error);
+    this.user$.subscribe(user => {
+      if (user) {
+        const firebaseId = user.uid; // Use the authenticated user's UID
+        const recipeId = favorite.idMeal; // Use idMeal to identify the recipe
+  
+        // Send a DELETE request to the backend to remove the favorite
+        this.http.delete(`${environment.apiUrl}/meals/${firebaseId}/favorites/${recipeId}`)
+          .subscribe(
+            () => {
+              // After successful removal, update the UI by filtering out the removed meal
+              this.userData.favorites = this.userData.favorites.filter((fav: any) => fav.idMeal !== recipeId);
+            },
+            error => {
+              console.error('Error removing recipe from favorites:', error);
+            }
+          );
+      } else {
+        alert('You must be logged in to remove meals from your favourites!');
       }
-    );
+    });
   }
   logout() {
     this.authService.signOut();
